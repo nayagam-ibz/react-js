@@ -1,0 +1,136 @@
+:root {
+  --body_color: #f8f8fb;
+  --btn_color: #311c79;
+  --blue: #1e90ff;
+  --white: #ffffff;
+  --black: #000000;
+  --theme_color: #311c79;
+  --font_size_10: 10px;
+  --font_size_12: 12px;
+  --font_size_13: 13px;
+  --font_size_14: 14px;
+  --font_size_785: 0.785rem;
+  --font_size_0_8125: 0.8125rem;
+  --font_size_0_72: 0.72rem;
+  --font_size_0_60: 0.60rem;
+  --font_size_0_90: 0.90rem;
+  --font_size_15: 15px;
+  --font_size_20: 20px;
+  --font_size_18: 18px;
+}
+
+body {
+	font-size: 13px;
+	background-color: var(--body_color);
+	font-family: 'Montserrat', sans-serif;
+}
+
+a {
+	text-decoration-line: none;
+	color: var(--theme_color);
+	font-weight:500;
+}
+
+.full_with {
+	width: 100%;
+}
+
+.white_background {
+	background-color: var(--white)
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: var(--background-color) !important;
+}
+
+label {
+  font-size: var(--font_size_0_72);
+  font-weight: 500;
+  color: #222;
+  margin-bottom: 2px;
+}
+
+.form-group{
+	margin-bottom: 13px;
+	.form-control {
+	  font-size: var(--font_size_0_72);
+		background-color: #FFF;
+		border: 1px solid #ced4da;
+		border-radius: 4px;
+		padding: 5px 10px;
+		height: 40px;
+		box-shadow: none;
+	}
+}
+
+textarea {
+	background-color: #FFF;
+	border: 1px solid #e5e6e7;
+	border-radius: 3px;
+	padding: 5px 10px;
+	box-shadow: none;
+	width: 100%;
+	font-size: var(--font_size_0_72)
+}
+
+select{
+  appearance: auto !important;
+}
+
+.custom_theme_btn {
+	padding: 13px 0px;
+	border: 1px solid var(--btn_color);
+	color: var(--white);
+	font-size: var(--font_size_0_8125);
+	border-radius: 3px;
+	font-weight: 500;
+	background-color: var(--btn_color);
+	&:hover {
+	  color: var(--white);
+	  background-color: var(--btn_color);
+	}
+	&:active {
+	  background-color: var(--btn_color)
+	}
+}
+
+#multi_step_form .inner_multi_step #multistep_nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+#multi_step_form .inner_multi_step fieldset.step:not(:first-of-type) {
+  display: none;
+}
+
+.prevStep, .nextStep{
+  cursor: pointer;
+  color: var(--theme_color);
+  font-weight: 500;
+  font-size: var(--font_size_785)
+}
+
+.left_side_panel {
+	background-color: #321d7c;
+}
+
+.right_side_padding {
+	padding: 0px 120px;
+}
+
+.password-input {
+  position: relative;
+}
+
+.password-type-option{
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 15px;
+  cursor: pointer;
+  color: #787878;
+}
