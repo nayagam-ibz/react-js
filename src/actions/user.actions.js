@@ -1,29 +1,29 @@
 import { userConstants } from '../constants';
 import { history } from '../helpers';
 import { makePOSTRequest} from '../utils/Axios';
-import { reset, setState } from "redux-form";
+import { reset } from "redux-form";
 
 export const userActions = {
   loginRequest,
   registrationRequest,
   fogotPasswordRequest,
   changePasswordRequest,
-  unlockRequest
+  unlockRequest,
+  logoutRequest
 };
-
-const redirect_url = (URL) =>{
-  window.location.href = URL;
-}
 
 export function loginRequest(value) {
   return dispatch => {
     try{
       makePOSTRequest('/login', value)
       .then(response => {
-        if (response.data.status == 'ok') {
-          history.push('/dashboard')
+        console.log(response)
+        console.log(response)
+        console.log(response.data.access_token)
+        if (response.data.status === 'ok') {
+          localStorage.setItem('user', JSON.stringify(response.data.access_token));
+          history.push('/')
         }else {
-          dispatch(alertActions.error(response.data.error));
           dispatch(reset('loginForm'));
         }
       })
@@ -41,7 +41,7 @@ export function registrationRequest(value) {
     try{
       makePOSTRequest('/registration', value)
       .then(response => {
-        if (response.data.status == 'ok') {
+        if (response.data.status === 'ok') {
           history.push('/login');
         }else {
           dispatch(reset('registrationForm'));
@@ -61,7 +61,10 @@ export function fogotPasswordRequest(value) {
     try{
       makePOSTRequest('/forgot_password', value)
       .then(response => {
-        if(response.data.status == "ok"){
+        console.log(response)
+        console.log(response)
+        console.log(response)
+        if(response.data.status === "ok"){
           history.push('/login');
         }else {
           dispatch(reset('forgotForm'));
@@ -77,11 +80,18 @@ export function fogotPasswordRequest(value) {
 }
 
 export function changePasswordRequest(value) {
+  console.log(value)
+  console.log(value)
+  console.log(value)
+  console.log(value)
   return dispatch => {
     try{
       makePOSTRequest('/change_password', value)
       .then(response => {
-        if(response.data.status == "ok"){
+        console.log(response)
+        console.log(response)
+        console.log(response)
+        if(response.data.status === "ok"){
           history.push('/login');
         }else {
           dispatch(reset('resetForm'));
@@ -102,7 +112,7 @@ export function unlockRequest(value) {
       makePOSTRequest('/request_unlock', value)
       .then(response => {
         console.log(response)
-        if(response.data.status == "ok"){
+        if(response.data.status === "ok"){
           history.push('/login');
         }else {
           dispatch(reset('unlockForm'));
@@ -113,6 +123,21 @@ export function unlockRequest(value) {
         type: userConstants.AUTHENTICATION_FAILED,
         payload: console.log(e),
       })
+    }
+  }
+}
+
+
+export function logoutRequest() {
+  return dispatch => {
+    const user = localStorage.getItem('user');
+    if(user){
+      try{
+        localStorage.clear();
+        history.push("/login");        
+      }catch{
+
+      }
     }
   }
 }

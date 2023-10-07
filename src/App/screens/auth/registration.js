@@ -1,16 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { textInput, PasswordInput } from '../../../shared/form-elements'
-import { reduxForm, Field } from "redux-form";
-import { Button } from 'react-bootstrap';
+import { reduxForm } from "redux-form";
 import { userActions } from '../../../actions';
+import InfluencerForm1 from "./shared/influencer_step1";
+import InfluencerForm2 from "./shared/influencer_step2";
+import BasicInformation from "./shared/basic_information";
+import HostStepOneForm from "./shared/host_step1";
+import HostStepTwoForm from "./shared/host_step2";
+import { Wizard } from "react-use-wizard";
 
-function Registration(props) {
+function RegistrationForm(props) {
+  const [registration_type, set_registration_type] = useState("");
   const dispatch = useDispatch();
   
   const formSubmit = (values) => {
+    console.log(values)
+    console.log(values)
+    console.log(values)
+    console.log(values)
+    console.log(values)
+    console.log(values)
+    console.log(values)
     dispatch(userActions.registrationRequest(values))
+  }
+
+  const handleCallback = (childData) => {
+    set_registration_type(childData)
+  }
+
+  const renderStepOne = () => {
+    if (registration_type === "influencer") {
+      return <InfluencerForm1/>;
+    } else {
+      return <HostStepOneForm />;
+    }
+  }
+
+  const renderStepTwo = () => {
+    if (registration_type === "influencer") {
+      return <InfluencerForm2/>;
+    } else {
+      return <HostStepTwoForm />;
+    }
   }
 
   return (
@@ -18,66 +50,21 @@ function Registration(props) {
       <div className="col-md-4 offset-4">
         <div className="vh-100 d-flex align-items-center justify-content-center">
           <div className="vw-100">
-            <h5 className="mb-5">Login</h5>     
+            <div className="">
+              <h5 className="mb-4">Sign Up</h5>   
+              <p>
+                Already have an account?  
+                <Link to="/login" className="px-2">Sign In</Link>
+              </p>  
+            </div>
             <form onSubmit={props.handleSubmit(formSubmit)}>
-              <div className="form-group">
-                <Field 
-                  name="email" 
-                  type="email" 
-                  component={textInput} 
-                  label="Email"
-                />
-              </div>
-              <div className="form-group">
-                <Field 
-                  name="password" 
-                  type="password" 
-                  component={PasswordInput} 
-                  label="Password"
-                />
-              </div>
-              <div className="form-group">
-                <Field 
-                  name="password_confirmation" 
-                  type="password" 
-                  component={PasswordInput} 
-                  label="Password Confirmation"
-                />
-              </div>
-              <div className="form-group d-flex align-items-center">
-                <div>Registration Type</div>
-                <label className="d-flex align-items-center px-3">
-                  <Field 
-                    name="registration_type" 
-                    component="input" 
-                    type="radio" 
-                    value="hosts"
-                  /> 
-                  <span className="px-1">Hosts</span>
-                </label>
-                <label className="d-flex align-items-center">
-                  <Field 
-                    name="registration_type" 
-                    component="input" 
-                    type="radio" 
-                    value="influencer"
-                  /> 
-                  <span className="px-1">Influencer</span>
-                </label>
-              </div>
-              <div className="mt-3 mb-3">
-                <Button 
-                  variant="brand" 
-                  type="submit" 
-                  className="btn custom_theme_btn px-3 full_with">
-                  Sign Up
-                </Button>
-              </div>
+              <Wizard>
+                <BasicInformation parentCallback={handleCallback} />
+                {renderStepOne()}
+                {renderStepTwo()}
+              </Wizard>             
             </form>
-            <p className="d-flex justify-content-center">
-              Already have an account?  
-              <Link to="/login" className="px-2">Sign In</Link>
-            </p>
+
           </div>
         </div>
       </div>
@@ -85,13 +72,13 @@ function Registration(props) {
   );
 }
 
-Registration =  reduxForm({
-  form: 'registerForm',
-})(Registration);
+RegistrationForm =  reduxForm({
+  form: 'register_Form',
+})(RegistrationForm);
 
 
 const mapStateToProps = (state) => {
   return { };
 };
 
-export default connect(mapStateToProps, { userActions })(Registration);
+export default connect(mapStateToProps, { userActions })(RegistrationForm);

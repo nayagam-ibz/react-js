@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { textInput, PasswordInput } from '../../../shared/form-elements'
+import { useLocation } from 'react-router-dom';
+import { PasswordInput } from '../../../shared/form-elements'
 import { reduxForm, Field } from "redux-form";
 import { Button } from 'react-bootstrap';
 import { userActions } from '../../../actions';
@@ -9,9 +9,16 @@ import { userActions } from '../../../actions';
 
 function ChangePassword(props) {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const query = new URLSearchParams(props.location.search);
+  const reset_password_token = query.get('token');
   
   const formSubmit = (values) => {
-    dispatch(userActions.changePasswordRequest(values))
+     const { from } = location.state || { from: { pathname: "/" } };
+    values.reset_password_token = reset_password_token;
+    console.log(values)
+    console.log(from)
+    dispatch(userActions.changePasswordRequest(values, from))
   }
 
   return (

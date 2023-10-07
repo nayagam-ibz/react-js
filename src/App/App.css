@@ -134,3 +134,11 @@ select{
   cursor: pointer;
   color: #787878;
 }
+
+.prevStep, .prevStep:hover, .nextStep, .nextStep:hover{
+  color: var(--theme_color);
+  font-weight: 500;
+  font-size: var(--font_size_785);
+  background: transparent;
+  border: 0px;
+}

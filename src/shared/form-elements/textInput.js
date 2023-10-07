@@ -17,7 +17,7 @@ export const textInput = ({
 
   return (
     <div className="form-group">
-       <label className="mb-1" style={{ fontSize: "14px" }}> {label}</label>
+       <label> {label}</label>
       <input
         {...input}
         type={type}
